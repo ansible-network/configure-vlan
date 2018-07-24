@@ -1,0 +1,8 @@
+---
+
+{
+  "create_vlan": {
+    "vlan_id": 0,
+    "vlan_name" : "test"
+  }
+}
