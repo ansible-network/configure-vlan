@@ -1,0 +1,10 @@
+---
+- name: "ios: run create vlan using network_cli connection"
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  ios_config:  
+    lines:
+      - "vlan {{ vlan.vlan_id }}"
+      - "name {{ vlan.name }}"
+  connection: network_cli
