@@ -1,0 +1,10 @@
+---
+- name: "iosxr: run create vlan using network_cli connection"
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  iosxr_config:  
+    lines:
+      - "interface {{ vlan.extensions.iosxr.interface_type  }} {{ vlan.extensions.iosxr.interface_name }}"
+      - "dot1q native vlan {{ vlan.vlan_id }}"
+  connection: network_cli
