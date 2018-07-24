@@ -1,0 +1,50 @@
+---
+- name: "check for mandatory parameter: vlan_id"
+  fail:
+    msg: "missing requried parameter: vlan_id"
+  delegate_to: localhost
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  when: ( vlan.vlan_id is not defined )
+
+- name: "check for mandatory parameter: name"
+  fail:
+    msg: "missing requried parameter: name"
+  delegate_to: localhost
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  when: ( vlan.name is not defined )
+
+- name: "check if vlan_id is valid"
+  fail:
+    msg: "vlan_id is less than 1 (valid-range: 1-4094)"
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  when:
+    - vlan.vlan_id < 1
+  delegate_to: localhost
+
+- name: "check if vlan_id is valid"
+  fail:
+    msg: "vlan_id is greater than 4094 (valid-range: 1-4094)"
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  when:
+    - vlan.vlan_id > 4094
+  delegate_to: localhost
+
+- name: "check for junos network connection"
+  fail:
+    msg: "junos network connection is not netconf"
+  delegate_to: localhost
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  when: ansible_network_os=="junos" and ansible_connection != "netconf"
+
+- name: include and run device provider specific tasks
+  include_tasks: main.yml #'vlan_resource':'create_network'
