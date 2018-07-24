@@ -1,0 +1,9 @@
+---
+- name: "junos: run create vlan using network_cli connection"
+  with_items: "{{ vlans }}"
+  loop_control:
+    loop_var: vlan
+  junos_config:
+    lines:
+      - "set vlans {{ vlan.name }} vlan-id {{ vlan.vlan_id }}"
+  connection: netconf
