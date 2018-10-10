@@ -1,4 +1,4 @@
-Configure_system_properties
+Configure_vlan
 ----------------------------
 
 Ansible-network user role to configure and manage VLANs where user shall be able to manage the aggregate set of configured VLANs on the network device including being able to create, modify and delete the aggregate set or individual VLANs, over network_cli connection to connect to network device. More info can be found at https://docs.ansible.com/ansible/2.5/network/index.html#network-guide
