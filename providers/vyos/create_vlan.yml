@@ -1,9 +1,0 @@
----
-- name: "vyos: run create vlan using network_cli connection"
-  with_items: "{{ vlans }}"
-  loop_control:
-    loop_var: vlan
-  vyos_config:
-    lines:  
-      - "set interfaces ethernet {{ vlan.extensions.vyos.interfaces }} vif {{ vlan.vlan_id }} description {{ vlan.name}}"
-  connection: network_cli
